@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<title>Goa Resort</title>
+<style>
+    body {
+      font-family:'Times New Roman', Times, serif;
+      background-color:aqua;
+      margin:5px;
+      padding: 5px;
+    }
+
+    header {
+      background-color:palevioletred;
+      color:black;
+      text-align: center;
+      padding: 2px;
+    }
+
+    main {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 80vh;
+      padding: 20px;
+    }
+
+    form {
+      width: 550px; 
+      margin: 0 auto; 
+      border: 1px solid #ccc;
+      background-color: peachpuff;
+      padding: 80px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    input[type="tel"],
+    input[type="date"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-bottom: 15px;
+      font-size: 14px;
+    }
+
+
+    input[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      width: 100%; 
+    }
+
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+
+    .error {
+      color: red;
+      font-size: 12px;
+      margin-top: -10px;
+      margin-bottom: 10px;
+    }
+</style>
+<body style="background-color:bisque">
+<header>
+<link rel="stylesheet" 
+href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <div class="row">
+    <div class="col-sm-2" style="margin-top:20px">
+    <img style="margin-left:105px" src="resortlogo.jpg" alt="no image found" width="110" height="80">
+    </div>
+    <div class="col-sm-8" style="margin-top:50px">
+    <h1><center>Resort Booking</center></h1>
+    </div>
+    <div class="col-sm-2" style="margin-top:20px">
+    <img src="resortlogo.jpg" alt="no image found" width="110" height="80">
+    </div>
+    </div>
+</header>
+<main>
+  <form action="booking_confirmation.html" method="get" onsubmit="return validateForm();">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" placeholder="enter your name" required><br><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" placeholder="enter your email" required><br><br>
+
+    <label for="number">Phone number:</label>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#number').on('input', function() {
+                var input = $(this).val();
+                var numericInput = input.replace(/[^0-9\+\-\s]/g, ''); // Allow digits, plus, hyphen, and space
+                
+                $(this).val(numericInput);
+            });
+        });
+    </script>
+    <input type="text" id="number" name="number" placeholder="enter mobile number" minlength="10" maxlength="10" required><br><br>
+
+    <label for="checkin">Check-in Date:</label>
+    <input type="date" id="checkin" name="checkin" required><br><br>
+
+    <label for="checkout">Check-out Date:</label>
+    <input type="date" id="checkout" name="checkout" required><br><br>
+
+    <label for="guests">Number of Guests:</label>
+    <input type="number" id="guests" name="guests" min="1" required><br><br>
+
+    <label for="food">Food Preference</label><br>
+    <input type="radio" name="food" value="veg">Veg<br>
+    <input type="radio" name="food" value="Non veg">Non Veg<br><br>
+
+    <label for="room_type">Room Type:</label>
+    <select id="room_type" name="room_type" required>
+        <option value="standard">Standard</option>
+        <option value="deluxe">Deluxe</option>
+        <option value="suite">Suite</option>
+    </select><br><br>
+
+    <input type="submit" value="Submit Booking">
+</form>
+</main>
+<script>
+    function validateForm() {
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const number =document.getElementById("number").value.trim();
+      const checkin = document.getElementById("checkin").value.trim();
+      const checkout = document.getElementById("checkout").value.trim();
+      const guests=document.getElementById("guests").value.trim();
+      const food = document.querySelector('input[name="food"]:checked');
+      const room_type=document.getElementById("room_type").value.trim();
+  
+      if (name === "") {
+        alert("Please enter your name.");
+        return false;
+      }
+  
+      if (email === "") {
+        alert("Please enter your email address.");
+        return false;
+      }
+  
+      if (number === "" || number.length !== 10) {
+        alert("Please enter a valid 10-digit phone number.");
+        return false;
+      }
+  
+      if (checkin === "") {
+        alert("Please enter the checkin date.");
+        return false;
+      }
+
+      if (checkout === "") {
+        alert("Please enter the checkout date.");
+        return false;
+      }
+
+      if (guests === "") {
+        alert("Please enter the no of guests.");
+        return false;
+      }
+
+      if (food === "") {
+        alert("Please enter the food preference.");
+        return false;
+      }
+      
+      if (room_type === "") {
+        alert("Please enter the room_type.");
+        return false;
+      }
+  
+      displayFormData(name, email,number,checkin,checkout,guests,food,room_type);
+  
+      return false;
+    }
+  
+    function displayFormData(name, email,number,checkin,checkout,guests,food,room_type) {
+      const formDataContainer = document.createElement("div");
+      formDataContainer.style.marginTop = "20px";
+      formDataContainer.style.padding = "20px";
+      formDataContainer.style.border = "1px solid #333";
+      formDataContainer.style.borderRadius = "8px";
+      formDataContainer.style.backgroundColor="#fff";
+  
+      formDataContainer.innerHTML = `
+        <h1>Form Data</h1>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Phone Number:</strong> ${number}</p>
+        <p><strong>Check-in:</strong> ${checkin}</p>
+        <p><strong>Check-out:</strong> ${checkout}</p>
+        <p><strong>No.ofGuests:</strong> ${guests}</p> 
+        <p><strong>Food Prefernce:</strong> ${food}</p>
+        <p><strong>Room_type:</strong> ${room_type}</p>
+      `;
+  
+      document.querySelector("main").appendChild(formDataContainer);
+    }
+  </script>
+</body>
+</html>
